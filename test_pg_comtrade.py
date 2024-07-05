@@ -1,3 +1,4 @@
+import sqlalchemy
 from pg_comtrade import sync, query
 import pandas as pd
 import pytest
@@ -8,7 +9,7 @@ def example_data():
     
 @pytest.fixture
 def schema():
-    return '_team_opss_ds'
+    return 'public'
     
 @pytest.fixture
 def table():
@@ -16,13 +17,15 @@ def table():
 
 
 def test_sync(example_data, schema, table):
-    try:
-        sync(schema=schema,
-            table=table,
-            df=example_data,
-            if_exists='replace')
-    except Exception as e:
-        pytest.fail(f"Something is wrong with error: {repr(e)}")
+    sql_engine = sqlalchemy.create_engine("postgresql://postgres:postgres@127.0.0.1:5432/")
+    with sql_engine.connect() as connection:
+        try:
+            sync(connection=connection, schema=schema,
+                table=table,
+                df=example_data,
+                if_exists='replace')
+        except Exception as e:
+            pytest.fail(f"Something is wrong with error: {repr(e)}")
 
-    df = query(sql=f"SELECT * FROM {schema}.{table}")
+        df = query(connection, sql=f"SELECT * FROM {schema}.{table}")
     assert  df.equals(example_data)

@@ -36,6 +36,11 @@ To develop pg-comtrade, you will need to install the package in editable mode, a
 pip install -e '.[dev]'
 ```
 
+And start a local PostgreSQL server:
+```bash
+./start-services.sh
+```
+
 And then to run the tests:
 
 ```bash

@@ -16,6 +16,9 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+dependencies = [
+  "sqlalchemy>=1.4.24",
+]
 
 [project.urls]
 "Source" = "https://github.com/uktrade/pg-comtrade"
@@ -23,6 +26,7 @@ classifiers = [
 [project.optional-dependencies]
 dev = [
   "pytest>=7.4.4",
+  "psycopg2-binary",
 ]
 
 [tool.hatch.build]
