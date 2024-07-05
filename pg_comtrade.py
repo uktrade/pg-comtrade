@@ -2,9 +2,8 @@ import sqlalchemy
 from sqlalchemy.sql import text as sql_text
 import pandas as pd
 
-sql_engine = sqlalchemy.create_engine("postgresql://")
 
-def sync(schema,table,df, if_exists="fail", index=False, **kwargs):
+def sync(connection, schema, table, df, if_exists="fail", index=False, **kwargs):
     """
     ingest a single row of hard coded data into the table
 
@@ -23,20 +22,20 @@ def sync(schema,table,df, if_exists="fail", index=False, **kwargs):
     be possible to convert the cells to another format (e.g. a list-of-lists,
     or a JSON object)
     """
-    with sql_engine.connect() as connection:
-        df.to_sql(
-            table,
-            con=connection,
-            schema=schema,
-            index=index,
-            if_exists=if_exists,
-            **kwargs,
-        )
+
+    df.to_sql(
+        table,
+        con=connection,
+        schema=schema,
+        index=index,
+        if_exists=if_exists,
+        **kwargs,
+    )
     
     return schema
 
 
-def query(sql, params=None):
+def query(connection, sql, params=None):
     """
     Read full results set from Data Workspace based on arbitrary query
 
@@ -49,5 +48,4 @@ def query(sql, params=None):
         df: pandas dataframe read from Data Workspace
     """
 
-    with sql_engine.connect() as connection:
-        return pd.read_sql(sql_text(sql), connection, params=params)
+    return pd.read_sql(sql_text(sql), connection, params=params)
