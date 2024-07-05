@@ -1,4 +1,4 @@
-# pg-comtrade
+# pg-comtrade [![PyPI package](https://img.shields.io/pypi/v/pg-comtrade?label=PyPI%20package)](https://pypi.org/project/pg-comtrade/) [![Test suite](https://img.shields.io/github/actions/workflow/status/uktrade/pg-comtrade/test.yaml?label=Test%20suite)](https://github.com/uktrade/pg-comtrade/actions/workflows/test.yaml) [![Code coverage](https://img.shields.io/codecov/c/github/uktrade/pg-comtrade?label=Code%20coverage)](https://app.codecov.io/gh/uktrade/pg-comtrade)
 
 Python utility function to ingest data from UN Comtrade's bulk API into a (partitioned) PostgreSQL table.
 
