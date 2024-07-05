@@ -2,6 +2,8 @@
 
 Python utility function to ingest data from UN Comtrade's bulk API into a (partitioned) PostgreSQL table.
 
+> [!IMPORTANT]
+> This is a work-in-progress. This README serves as a rough design spec.
 
 ## Installation
 
