@@ -27,5 +27,5 @@ dev = [
 
 [tool.hatch.build]
 include = [
-  "pg_sync_roles.py"
+  "pg_comtrade.py"
 ]
