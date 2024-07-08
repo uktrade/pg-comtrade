@@ -1,9 +1,9 @@
 import sqlalchemy
 from sqlalchemy.sql import text as sql_text
 import pandas as pd
+import requests
 
-
-def sync(connection, schema, table, df, if_exists="fail", index=False, **kwargs):
+def sync(connection, schema, table, if_exists="fail", index=False, **kwargs):
     """
     ingest a single row of hard coded data into the table
 
@@ -23,16 +23,23 @@ def sync(connection, schema, table, df, if_exists="fail", index=False, **kwargs)
     or a JSON object)
     """
 
-    df.to_sql(
-        table,
-        con=connection,
-        schema=schema,
-        index=index,
-        if_exists=if_exists,
-        **kwargs,
-    )
     
-    return schema
+    # Make a API request to comtrade
+    response = requests.get('https://comtradeapi.un.org/public/v1/getComtradeReleases')
+
+    # change response json to pandas
+    if response.status_code == 200:
+        df = pd.DataFrame.from_dict(response.json())
+    
+        # write to database
+        df.to_sql(
+            table,
+            con=connection,
+            schema=schema,
+            index=index,
+            if_exists=if_exists,
+            **kwargs,
+        )
 
 
 def query(connection, sql, params=None):
