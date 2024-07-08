@@ -18,8 +18,7 @@ def comtrade_json():
 
 
 def test_sync(schema, table):
-    # sql_engine = sqlalchemy.create_engine("postgresql://postgres:postgres@127.0.0.1:5432/")
-    sql_engine = sqlalchemy.create_engine("postgresql://")
+    sql_engine = sqlalchemy.create_engine("postgresql://postgres:postgres@127.0.0.1:5432/")
     
     # This is setting up the "fake" API
     with requests_mock.Mocker() as m:
