@@ -6,7 +6,7 @@ import requests_mock
     
 @pytest.fixture
 def schema():
-    return '_team_firebreak_pg'
+    return 'public'
     
 @pytest.fixture
 def table():
