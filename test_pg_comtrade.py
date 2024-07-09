@@ -34,3 +34,17 @@ def test_sync(schema, table):
 
             df = query(connection, sql=f"SELECT * FROM {schema}.{table}")
     assert  df.equals(pd.read_csv('./data/comtrade_example.txt', delimiter='\t'))
+
+
+def test_sync_real(schema, table):
+    sql_engine = sqlalchemy.create_engine("postgresql://postgres:postgres@127.0.0.1:5432/")
+    with sql_engine.connect() as connection:
+        try:
+            sync(connection=connection, schema=schema,
+                table=table,
+                if_exists='replace')
+        except Exception as e:
+            pytest.fail(f"Something is wrong with error: {repr(e)}")
+
+        df = query(connection, sql=f"SELECT * FROM {schema}.{table}")
+    assert  len(df) > 0
