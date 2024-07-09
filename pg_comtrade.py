@@ -29,7 +29,10 @@ def sync(connection, schema, table, if_exists="fail", index=False, **kwargs):
 
     # change response json to pandas
     if response.status_code == 200:
-        df = pd.DataFrame.from_dict(response.json())
+        if isinstance(response.json(), dict):
+            df = pd.DataFrame.from_dict(response.json().get("data", {}))
+        else:
+            df = pd.DataFrame.from_dict(response.json())
     
         # write to database
         df.to_sql(
