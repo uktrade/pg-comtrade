@@ -1,6 +1,6 @@
 # pg-comtrade [![PyPI package](https://img.shields.io/pypi/v/pg-comtrade?label=PyPI%20package)](https://pypi.org/project/pg-comtrade/) [![Test suite](https://img.shields.io/github/actions/workflow/status/uktrade/pg-comtrade/test.yaml?label=Test%20suite)](https://github.com/uktrade/pg-comtrade/actions/workflows/test.yaml) [![Code coverage](https://img.shields.io/codecov/c/github/uktrade/pg-comtrade?label=Code%20coverage)](https://app.codecov.io/gh/uktrade/pg-comtrade)
 
-Python utility function to ingest data from UN Comtrade's bulk API into a (partitioned) PostgreSQL table.
+Python utility function to ingest data from UN Comtrade's bulk API into a (partitioned) PostgreSQL table. It can be used from any Python environment, e.g. Airflow, Dagster or the command line. It avoids loading all data into memory or local disk at once, and optionally uses S3 as an intermediary between Comtrade and your PostgreSQL database to work around Comtrade closing connections after a short period of time.
 
 > [!IMPORTANT]
 > This is a work-in-progress. This README serves as a rough design spec.
